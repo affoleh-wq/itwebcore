@@ -68,7 +68,7 @@ files={
  'webcore-lockup-on-black.svg': svg(LOCK_VB, mark(*DARK_SIL,'d')+word('#ffffff'), bg='#050608'),
  'webcore-wordmark.svg': svg(WORD_VB, word('#ffffff')),
  'webcore-wordmark-light.svg': svg(WORD_VB, word('#050608')),
- 'webcore-avatar.svg': svg((0,0,1080,1080), '<rect width="1080" height="1080" fill="#050608"/><g transform="translate(540 540) scale(1.25) translate(-626 -455)">'+mark(*DARK_SIL,'a')+'</g>'),
+ 'webcore-avatar.svg': svg((0,0,1080,1080), '<rect width="1080" height="1080" fill="#050608"/><g transform="translate(540 556) scale(1.22) translate(-626 -455)">'+mark(*DARK_SIL,'a')+'</g>'),
 }
 for n,c in files.items(): open('out/'+n,'w').write(c)
 print(list(files))
