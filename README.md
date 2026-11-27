@@ -25,3 +25,18 @@ tools/       render.py — HTML → PNG 1080×1350; make_logo.py — генер�
 - Брендбук: https://claude.ai/artifact/QbpRvEtLxS9kAguBnJHeWp
 - Тексты: https://claude.ai/artifact/FtPdGRc1ynD8hf2HnTNcro
 - Картинки недели 1 (редактируемый канвас): https://claude.ai/artifact/3MYrVXMfvaf55EGuCUR4Nk
+
+## Автопостинг в Telegram
+
+Каждый день в 10:17 по Кишинёву GitHub публикует в канал пост на сегодня: текст из `telegram.md` и картинку (для карусели — альбомом). Если в тексте остались [квадратные скобки], пост не уходит — сначала заполни их.
+
+Настройка один раз:
+
+1. В Telegram открой @BotFather → `/newbot` → придумай имя и username бота → получи токен.
+2. Открой свой канал → Управление каналом → Администраторы → Добавить администратора → найди бота → оставь право «Публикация сообщений».
+3. В GitHub: этот репозиторий → Settings → Secrets and variables → Actions → New repository secret:
+   - `TELEGRAM_BOT_TOKEN` — токен от BotFather;
+   - `TELEGRAM_CHAT_ID` — `@имя_канала` (для приватного канала — числовой id вида `-100…`).
+4. Проверка: вкладка Actions → «Пост дня в Telegram» → Run workflow → укажи дату поста, у которого заполнены все скобки.
+
+Токен никому не пересылай и не пиши в чат — только в Secrets.
