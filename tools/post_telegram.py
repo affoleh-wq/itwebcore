@@ -5,7 +5,7 @@
 Если в тексте остались [квадратные скобки] — ничего не публикует и падает с ошибкой,
 чтобы незаполненные заготовки не ушли в канал.
 """
-import glob, json, os, re, sys, datetime, zoneinfo, urllib.request, uuid
+import glob, json, os, re, sys, datetime, zoneinfo, urllib.request, urllib.error, uuid
 
 TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 CHAT = os.environ["TELEGRAM_CHAT_ID"]
@@ -33,7 +33,10 @@ def call(method, fields, files=None):
         body += open(path, "rb").read() + b"\r\n"
     body += f"--{boundary}--\r\n".encode()
     req = urllib.request.Request(API + method, data=body, headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
-    res = json.load(urllib.request.urlopen(req))
+    try:
+        res = json.load(urllib.request.urlopen(req))
+    except urllib.error.HTTPError as e:
+        res = json.load(e)
     if not res.get("ok"):
         raise SystemExit(f"Telegram ответил ошибкой: {res}")
     return res
