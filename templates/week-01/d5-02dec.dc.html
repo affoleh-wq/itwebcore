@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>День 5 — Бот вместо админа</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#2f8bff}a:hover{color:#08b9fd}
+</style>
+</helmet>
+<div style="position: relative; width: 1080px; height: 1350px; overflow: hidden; background: #050608; box-sizing: border-box; padding: 80px; display: flex; flex-direction: column; font-family: Inter, system-ui, sans-serif; color: #eaebeb">
+
+<svg aria-hidden="true" width="120" height="152" viewBox="0 0 120 152" style="position: absolute; top: 64px; right: 64px">
+<rect x="96" y="0" width="24" height="24" fill="#12e0fd"/><rect x="64" y="32" width="24" height="24" fill="#0139a1"/><rect x="32" y="64" width="24" height="24" fill="#08b9fd"/><rect x="96" y="64" width="24" height="24" fill="#08b9fd"/><rect x="32" y="96" width="24" height="24" fill="#08b9fd"/><rect x="0" y="128" width="24" height="24" fill="#0139a1"/>
+</svg>
+<p style="margin: 0; font-family: Inter, sans-serif; font-weight: 600; font-size: 24px; line-height: 1.2; letter-spacing: 4px; text-transform: uppercase; color: #08b9fd">Automate · Telegram-бот</p>
+<div style="position: relative; display: flex; flex-direction: column; gap: 56px; margin-top: 110px">
+<h1 style="margin: 0; max-width: 900px; font-family: 'Exo 2', sans-serif; font-weight: 800; font-size: 92px; line-height: 0.98; letter-spacing: -1px; color: #ffffff">Клиент написал в 22:40. Бот ответил <span style="color: #08b9fd">за секунду</span></h1>
+<div style="background: #0e1218; border: 1px solid #1c2430; border-radius: 12px; padding: 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="align-self: flex-end; max-width: 560px; background: #0473f7; color: #ffffff; border-radius: 12px; padding: 18px 24px; font-size: 28px; font-weight: 600">Сколько стоит и можно ли записаться на завтра? <span style="font-size: 22px; font-weight: 500">22:40</span></div>
+<div style="align-self: flex-start; max-width: 620px; background: #1c2430; color: #eaebeb; border-radius: 12px; padding: 18px 24px; font-size: 28px">Добрый вечер! Цены и свободное время — ниже. Выберите, что нужно: <span style="font-size: 22px; color: #8b95a7">22:40</span></div>
+<div style="display: flex; gap: 12px"><span style="flex: 1; text-align: center; padding: 18px 0; border: 1px solid #1c2430; border-radius: 4px; font-size: 26px; font-weight: 600; color: #08b9fd">Цены</span><span style="flex: 1; text-align: center; padding: 18px 0; border: 1px solid #1c2430; border-radius: 4px; font-size: 26px; font-weight: 600; color: #08b9fd">Записаться</span><span style="flex: 1; text-align: center; padding: 18px 0; border: 1px solid #1c2430; border-radius: 4px; font-size: 26px; font-weight: 600; color: #08b9fd">Адрес</span></div>
+</div>
+</div>
+<div style="margin-top: auto"></div>
+<div style="position: relative; display: flex; justify-content: space-between; align-items: center">
+<p style="margin: 0; font-size: 24px; font-weight: 500; color: #8b95a7">@itswebcore</p>
+<p style="margin: 0; font-size: 24px; font-weight: 500; color: #8b95a7">Напиши БОТ в комментариях</p>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1080,"height":1350}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
