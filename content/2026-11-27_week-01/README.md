@@ -17,4 +17,4 @@
 - `post.png` или `slide-1.png … slide-6.png` — картинки 1080×1350;
 - `notes.md` — формат и идеи для рилса.
 
-Telegram: публикуется автоматически в 10:17. Instagram: стоит в расписании Metricool на 19:00.
+Telegram: публикуется автоматически в 10:17. Instagram: стоит в расписании Metricool на 10:17.
