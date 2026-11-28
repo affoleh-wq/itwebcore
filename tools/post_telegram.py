@@ -16,6 +16,9 @@ dirs = sorted(glob.glob(f"content/*/[0-9][0-9]_{day}_*/"))
 if not dirs:
     print(f"На {day} поста нет — пропускаю."); sys.exit(0)
 d = dirs[0]
+marker = f"content/.posted/{day}"
+if os.path.exists(marker):
+    print(f"Пост на {day} уже опубликован — пропускаю."); sys.exit(0)
 text = open(os.path.join(d, "telegram.md"), encoding="utf-8").read().strip()
 left = re.findall(r"\[[^\]]+\]", text)
 if left:
@@ -55,4 +58,6 @@ elif images:
         call("sendMessage", {"chat_id": CHAT, "text": text})
 else:
     call("sendMessage", {"chat_id": CHAT, "text": text})
+os.makedirs("content/.posted", exist_ok=True)
+open(marker, "w").write(d + "\n")
 print(f"Опубликовано: {d}")

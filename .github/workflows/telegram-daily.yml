@@ -9,6 +9,13 @@ on:
         description: "Дата поста ГГГГ-ММ-ДД (пусто = сегодня)"
         required: false
 
+permissions:
+  contents: write
+
+concurrency:
+  group: telegram-daily
+  cancel-in-progress: false
+
 jobs:
   post:
     runs-on: ubuntu-latest
@@ -27,3 +34,13 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           POST_DATE: ${{ github.event.inputs.date }}
         run: python3 tools/post_telegram.py
+      - name: Отметить, что пост опубликован
+        if: steps.check.outputs.ready == 'yes'
+        run: |
+          if [ -n "$(git status --porcelain content/.posted)" ]; then
+            git config user.name "webcore-bot"
+            git config user.email "webcore-bot@users.noreply.github.com"
+            git add content/.posted
+            git commit -m "Опубликован пост в Telegram"
+            git pull --rebase -q && git push
+          fi
