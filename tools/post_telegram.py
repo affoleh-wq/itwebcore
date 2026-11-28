@@ -5,7 +5,9 @@
 Если в тексте остались [квадратные скобки] — ничего не публикует и падает с ошибкой,
 чтобы незаполненные заготовки не ушли в канал.
 """
-import glob, json, os, re, sys, datetime, zoneinfo, urllib.request, urllib.error, uuid
+import glob, json, os, re, sys, datetime, zoneinfo, urllib.request, urllib.error, uuid, html
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import telegraph
 
 TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 CHAT = os.environ["TELEGRAM_CHAT_ID"]
@@ -17,7 +19,7 @@ if not dirs:
     print(f"На {day} поста нет — пропускаю."); sys.exit(0)
 d = dirs[0]
 marker = f"content/.posted/{day}"
-if os.path.exists(marker):
+if os.path.exists(marker) and os.environ.get("DRY_RUN") != "true":
     print(f"Пост на {day} уже опубликован — пропускаю."); sys.exit(0)
 text = open(os.path.join(d, "telegram.md"), encoding="utf-8").read().strip()
 left = re.findall(r"\[[^\]]+\]", text)
@@ -44,7 +46,21 @@ def call(method, fields, files=None):
         raise SystemExit(f"Telegram ответил ошибкой: {res}")
     return res
 
-if len(images) == 1 and len(text) <= 1024:
+title_file = os.path.join(d, "title.txt")
+dry = os.environ.get("DRY_RUN") == "true"
+if os.path.exists(title_file) and os.environ.get("ARTICLE_MODE", "on") != "off":
+    title = open(title_file, encoding="utf-8").read().strip()
+    channel_url = f"https://t.me/{CHAT[1:]}" if CHAT.startswith("@") else ""
+    url = telegraph.publish(title, text, images, channel_url)
+    print(f"Статья: {url}")
+    if dry:
+        print("Пробный запуск — в канал не отправлено."); sys.exit(0)
+    msg = f"<b>{html.escape(title)}</b>\n\n{html.escape(telegraph.lead(text))}\n\n<a href=\"{url}\">Читать статью →</a>"
+    call("sendMessage", {"chat_id": CHAT, "text": msg, "parse_mode": "HTML",
+                         "link_preview_options": json.dumps({"url": url, "prefer_large_media": True, "show_above_text": True})})
+elif dry:
+    print("Пробный запуск — в канал не отправлено."); sys.exit(0)
+elif len(images) == 1 and len(text) <= 1024:
     call("sendPhoto", {"chat_id": CHAT, "caption": text}, {"photo": images[0]})
 elif len(images) == 1:
     call("sendPhoto", {"chat_id": CHAT}, {"photo": images[0]})
