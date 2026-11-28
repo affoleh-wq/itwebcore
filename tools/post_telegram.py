@@ -51,7 +51,11 @@ dry = os.environ.get("DRY_RUN") == "true"
 if os.path.exists(title_file) and os.environ.get("ARTICLE_MODE", "on") != "off":
     title = open(title_file, encoding="utf-8").read().strip()
     channel_url = f"https://t.me/{CHAT[1:]}" if CHAT.startswith("@") else ""
-    url = telegraph.publish(title, text, images, channel_url)
+    article_file = os.path.join(d, "article.md")
+    article = open(article_file, encoding="utf-8").read() if os.path.exists(article_file) else text
+    if re.findall(r"\[[^\]]+\]", article):
+        sys.exit(f"В {article_file} остались [заготовки] — пост не опубликован.")
+    url = telegraph.publish(title, article, images, channel_url)
     print(f"Статья: {url}")
     if dry:
         print("Пробный запуск — в канал не отправлено."); sys.exit(0)
