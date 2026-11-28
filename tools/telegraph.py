@@ -17,6 +17,12 @@ def to_nodes(text, images, channel_url):
     nodes = [{"tag": "figure", "children": [{"tag": "img", "attrs": {"src": RAW + img}}]} for img in images]
     for n, b in enumerate(blocks):
         lines = [l.strip() for l in b.split("\n") if l.strip()]
+        if lines[0].startswith("## "):
+            nodes.append({"tag": "h3", "children": [lines[0][3:].strip()]})
+            lines = lines[1:]
+            if not lines:
+                continue
+            b = "\n".join(lines)
         if n == 0:
             nodes.append({"tag": "p", "children": [{"tag": "strong", "children": [" ".join(lines)]}]})
             continue
